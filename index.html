@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kingtrishal's evil lair</title>
+<meta name="description" content="Kingtrishal - self-taught illustrator">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;font-size:10px}
+  body{margin:0;background:#242426;color:#fff;font-family:Arial,Helvetica,sans-serif;font-size:18px;line-height:26px}
+  p,h1,h2,h3,h4,h5,h6,ul{margin:0;padding:0}
+  a{text-decoration:none;color:inherit}
+  .anchor{position:relative;display:block;top:-78px;height:0}
+
+  /* ===== Header ===== */
+  #header{position:fixed;top:0;left:0;right:0;z-index:9100;background:#242426}
+  .header-inner{max-width:1200px;min-height:78px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+  .brand{margin:5px 10px 10px 10px;max-width:350px;font:700 36px/41px 'Open Sans',Arial,sans-serif;color:#fff;text-align:center;
+    margin-top:15px;margin-bottom:20px}
+  .menu-wrap{margin:10px;position:relative}
+  .hmenu{list-style:none;display:flex}
+  .hmenu a{display:block;padding:10px 20px;font:700 17px/19px Helvetica,Arial,sans-serif;color:#fff;transition:color .15s}
+  .hmenu a:hover,.hmenu a:focus{color:#199dfc}
+  .hmenu li.active>a{color:#0095ff}
+  .collapser{display:none;width:32px;height:29px;background:#fff;border:1px solid #000;cursor:pointer;padding:7px;text-align:center}
+  .collapser i{display:block;height:3px;width:18px;background:#000;margin:3px auto 0}
+  .collapser i:first-child{margin-top:0}
+
+  /* ===== Hero ===== */
+  main{padding-top:78px}
+  .hero{background:#000 url(gallery_gen/1d97d9b71fcece8b1aebd092f8936f12_fit.png) no-repeat center center;background-size:cover}
+  .hero-inner{max-width:1200px;margin:0 auto;padding:160px 20px;display:flex;justify-content:space-around;align-items:center}
+  .hero h1{width:99.48%;max-width:1157px;margin:20px 0;text-align:center;color:#fff3e4;
+    font:700 76px/82px 'Open Sans',Arial,sans-serif}
+
+  /* ===== Gallery ===== */
+  .about-wrap{background:#242426}
+  .gallery{width:100%;max-width:1200px;height:min(1182px,98vw);margin:0 auto;position:relative;overflow:hidden;background:transparent}
+  .gallery .slide{position:absolute;inset:0;opacity:0;transition:opacity .4s ease;cursor:pointer;pointer-events:none}
+  .gallery .slide.on{opacity:1;pointer-events:auto}
+  .gallery .slide img{width:100%;height:100%;object-fit:cover;display:block}
+  .gallery .arrow{position:absolute;top:50%;transform:translateY(-50%);padding:1em;font-size:16px;color:#fff;
+    text-shadow:0 0 1px #000;cursor:pointer;z-index:2;user-select:none;display:none}
+
+  /* ===== About ===== */
+  .about{max-width:1200px;margin:0 auto;padding:60px 20px;min-height:600px;display:flex;justify-content:space-around;align-items:center}
+  .about-col{width:100%;display:flex;flex-direction:column;align-items:center}
+  h2{font:700 40px/48px Arial,Helvetica,sans-serif;color:#fff;text-align:center;margin:20px 0}
+  .about-text{max-width:800px;margin:20px 0}
+  .about-text p{font:400 18px/26px Arial,Helvetica,sans-serif;color:#fff}
+  .about-text .sp{height:26px}
+  .about-text .sig{text-align:right}
+
+  /* ===== Contacts ===== */
+  .contact{max-width:1200px;margin:0 auto;padding:22px 20px 60px;text-align:center}
+  .contact .mail{max-width:360px;margin:10px auto;font:400 18px/26px Arial,Helvetica,sans-serif}
+  .contact-box{margin:20px 0}
+
+  /* ===== Footer ===== */
+  footer{background:#242426}
+  .footer-inner{max-width:1200px;min-height:109px;margin:0 auto;padding:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap}
+  .footer-inner .name{margin:5px;font:700 18px/24px Arial,Helvetica,sans-serif;color:#fff;text-decoration:underline}
+  .footer-inner .name:hover{text-decoration:none}
+  .social{display:flex;align-items:center;justify-content:space-around;margin:5px}
+  .social a{display:block;width:32px;height:32px;margin:5px;color:#fff}
+  .social svg{width:100%;height:100%;display:block;fill:currentColor}
+
+  /* back to top */
+  #totop{position:fixed;right:0;bottom:0;z-index:2000;margin:20px;width:64px;height:64px;color:#767676;cursor:pointer;display:block}
+  #totop svg{width:100%;height:100%;fill:currentColor}
+
+  /* lightbox */
+  #lb{position:fixed;inset:0;background:#000;z-index:99999998;display:none;align-items:center;justify-content:center}
+  #lb.open{display:flex}
+  #lb img{max-width:100%;max-height:100%;object-fit:contain}
+  #lb .x,#lb .a{position:absolute;color:#fff;font-size:26px;cursor:pointer;padding:16px;user-select:none;text-shadow:0 0 1px #000}
+  #lb .x{top:0;right:0}#lb .p{left:0;top:50%;transform:translateY(-50%)}#lb .n{right:0;top:50%;transform:translateY(-50%)}
+
+  /* ===== breakpoints ===== */
+  @media (min-width:767.5px) and (max-width:991px){
+    .hero-inner{padding:96px 12px}
+    .hero h1{font-size:61px;line-height:66px}
+  }
+  @media (min-width:991.5px) and (max-width:1199px){
+    .hero-inner{padding:128px 16px}
+  }
+  @media (max-width:1199px) and (min-width:991.5px){ .hero h1{font-size:76px} }
+  @media (max-width:767px){
+    main{padding-top:60px}
+    .anchor{top:-60px}
+    .header-inner{align-items:center}
+    .brand{font-size:28px;line-height:34px;margin:10px;max-width:none;text-align:left}
+    .menu-wrap{margin:10px}
+    .collapser{display:block}
+    .hmenu{display:none;position:fixed;top:60px;left:20px;right:20px;background:#000;flex-direction:column;max-height:calc(98vh - 60px);overflow-y:auto}
+    .menu-wrap.open .hmenu{display:flex}
+    .hmenu a{text-align:left}
+    .hero-inner{padding:80px 10px;flex-direction:column}
+    .hero h1{font-size:46px;line-height:49px}
+    .about{flex-direction:column;min-height:0;padding:40px 16px}
+    .footer-inner{flex-direction:column}
+    h2{font-size:32px;line-height:40px}
+    #totop{width:48px;height:48px;margin:12px}
+  }
+</style>
+</head>
+<body>
+
+<header id="header">
+  <div class="header-inner">
+    <a class="brand" href="#home">KINGTRISHAL</a>
+    <div class="menu-wrap" id="menuWrap">
+      <span class="collapser" id="collapser" aria-label="Menu"><i></i><i></i><i></i></span>
+      <ul class="hmenu" id="menu">
+        <li class="active" data-t="home"><a href="#home">Home</a></li>
+        <li data-t="about"><a href="#about">About</a></li>
+        <li data-t="contact"><a href="#contact">Contacts</a></li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<main>
+  <a class="anchor" id="home"></a>
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>I'm too lazy to think something&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;good&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</h1>
+    </div>
+  </section>
+
+  <div class="about-wrap">
+    <a class="anchor" id="about"></a>
+    <div class="gallery" id="gallery">
+      <span class="arrow" style="left:0">&#10094;</span>
+      <span class="arrow" style="right:0">&#10095;</span>
+    </div>
+
+    <section class="about">
+      <div class="about-col">
+        <h2>Who am I ?</h2>
+        <div class="about-text">
+          <p>I am a self thaught Illustraitor, I draw in my own style which is still devloping but I can draw in anime style and emulate other artstyles.&nbsp;I don't post much, I try to post atleast once a month. If you want any commission done by me, contact me.&nbsp;I don't have commissions open but I will do it if it's a special request.</p>
+          <div class="sp"></div>
+          <p class="sig">-Kingtrishal</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div style="background:#242426">
+    <a class="anchor" id="contact"></a>
+    <section class="contact">
+      <h2>Contacts</h2>
+      <div class="contact-box">
+        <div class="mail">
+          <p><strong>Email:</strong></p>
+          <p>businessofkingtrishal@gmail.com</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <a class="name" href="https://kingtrishal.page.gd">Kingtrishal</a>
+    <div class="social">
+      <a href="https://www.instagram.com/kingtrishal/" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm0 2a3 3 0 00-3 3v10a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H7zm5 3.2a4.8 4.8 0 110 9.6 4.8 4.8 0 010-9.6zm0 2a2.8 2.8 0 100 5.6 2.8 2.8 0 000-5.6zM17.5 5.8a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"/></svg>
+      </a>
+      <a href="https://x.com/KingTrishal" target="_blank" rel="noopener" aria-label="X">
+        <svg viewBox="0 0 24 24"><rect x="1" y="1" width="22" height="22" rx="3" fill="#fff"/><path fill="#242426" transform="translate(5.2 5.2) scale(.6)" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<a id="totop" href="#home" aria-label="Back to top"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="29" fill="none" stroke="currentColor" stroke-width="5"/><path fill="currentColor" d="M32 14L14 32h11v18h14V32h11z"/></svg></a>
+
+<div id="lb"><span class="x">&#10005;</span><span class="a p">&#10094;</span><span class="a n">&#10095;</span><img alt=""></div>
+
+<script>
+  /* Slides come from slides.json, which the admin panel (/admin/) edits.
+     FALLBACK is only used if slides.json cannot be loaded. */
+  const FALLBACK = ["gallery_gen/7bbfca2730ae00893e308d937f3c0169_fit.png", "gallery_gen/1d7975c369f5cbf73da413daf0cf0e06_fit.png", "gallery_gen/f0068960ce2bec1b3ae7d42b365f09d5_fit.png", "gallery_gen/22c6079976f07b330a6892857d4bc0bb_fit.png", "gallery_gen/c5b5ce9603e99a0432f4acd2e0699239_fit.png", "gallery_gen/ef60d202d8272b8522e8f9a5de9f8034_fit.png", "gallery_gen/f8bacacd76dc5c8122e0baf72bd8d8ff_fit.png", "gallery_gen/eeeae0601292fa085632334128e064fb_fit.png", "gallery_gen/ad92e3b40fe4ae1adc476b155d015da4_fit.png", "gallery_gen/12a5d44f911cbaddc13be2a4aac9568a_fit.png", "gallery_gen/de773177a6d6e19f5212ff2b344424b7_fit.png", "gallery_gen/3defc6de3fd8a83c5fb92d718450ccb8_fit.png", "gallery_gen/ddf940a2eebdbcabe0e10c3d57520f42_fit.png", "gallery_gen/f7e4e8cf80d41399664bdf437e2a97c4_fit.png", "gallery_gen/69a931033b4d39cabcbf9d707c6e41b4_fit.png"];
+
+  const g = document.getElementById('gallery');
+  const lb = document.getElementById('lb'), lbImg = lb.querySelector('img');
+  let IMGS = [], slides = [], cur = 0, timer;
+
+  function show(n){
+    if (!slides.length) return;
+    cur = (n + slides.length) % slides.length;
+    slides.forEach((s,i) => s.classList.toggle('on', i === cur));
+    clearInterval(timer);
+    timer = setInterval(() => { if (!lb.classList.contains('open')) show(cur+1); }, 3000);
+  }
+  function openLb(i){ cur = (i + IMGS.length) % IMGS.length; lbImg.src = IMGS[cur]; lb.classList.add('open'); }
+
+  function initGallery(list){
+    IMGS = list;
+    if (!IMGS.length) { g.style.display = 'none'; return; }
+    slides = IMGS.map((src, i) => {
+      const d = document.createElement('div'); d.className = 'slide';
+      const im = new Image(); im.src = src; im.alt = '';
+      if (i > 0) im.loading = 'lazy';
+      d.appendChild(im); d.onclick = () => openLb(i);
+      g.insertBefore(d, g.querySelector('.arrow'));
+      return d;
+    });
+    show(0);
+  }
+
+  fetch('slides.json?v=' + Date.now(), {cache:'no-store'})
+    .then(r => r.ok ? r.json() : Promise.reject())
+    .then(d => Array.isArray(d.slides) ? d.slides : Promise.reject())
+    .catch(() => FALLBACK)
+    .then(initGallery);
+
+  /* lightbox */
+  lb.querySelector('.x').onclick = () => { lb.classList.remove('open'); show(cur); };
+  lb.querySelector('.p').onclick = () => openLb(cur-1);
+  lb.querySelector('.n').onclick = () => openLb(cur+1);
+  addEventListener('keydown', e => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') lb.querySelector('.x').click();
+    if (e.key === 'ArrowLeft') openLb(cur-1);
+    if (e.key === 'ArrowRight') openLb(cur+1);
+  });
+
+  /* mobile menu */
+  const wrap = document.getElementById('menuWrap');
+  document.getElementById('collapser').onclick = () => wrap.classList.toggle('open');
+  document.querySelectorAll('#menu a').forEach(a => a.addEventListener('click', () => wrap.classList.remove('open')));
+
+  /* scroll spy */
+  const items = [...document.querySelectorAll('#menu li')];
+  const hdr = document.getElementById('header').offsetHeight;
+  function spy(){
+    let active = 'home';
+    items.forEach(li => {
+      const el = document.getElementById(li.dataset.t);
+      if (el && el.getBoundingClientRect().top <= hdr + 2) active = li.dataset.t;
+    });
+    items.forEach(li => li.classList.toggle('active', li.dataset.t === active));
+  }
+  addEventListener('scroll', spy, {passive:true}); spy();
+</script>
+</body>
+</html>
